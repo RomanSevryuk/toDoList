@@ -49,7 +49,6 @@ function App() {
         setTasks({...tasks, [toDolistId]: [newTask, ...tasks[toDolistId]]})
     }
 
-
     function changeStatus(toDolistId: string, taskId: string, isDone: boolean) {
         setTasks({...tasks, [toDolistId]: tasks[toDolistId].map(el => el.id === taskId ? {...el, isDone} : el)})
     }
@@ -68,20 +67,25 @@ function App() {
         const newTodolistId = v1()
         const newToDolist: TodolistType = {id: newTodolistId, title: newTitle, filter: "All"}
         setTodolist([newToDolist, ...todolist])
-        setTasks({...tasks, [newTodolistId]: [
-                {id: v1(), title: "newHTML", isDone: true},
-                {id: v1(), title: "newJS", isDone: true},
-                {id: v1(), title: "newReactJS", isDone: false},
-                {id: v1(), title: "newReactJS", isDone: false},
-            ]})
+        setTasks({
+            ...tasks, [newTodolistId]: [
+                /*                {id: v1(), title: "newHTML", isDone: false},
+                                {id: v1(), title: "newJS", isDone: false},
+                                {id: v1(), title: "newReactJS", isDone: false},
+                                {id: v1(), title: "newReactJS", isDone: false},*/
+            ]
+        })
     }
 
     const editToDolist = (toDolistId: string, changeTitle: string) => {
-        setTodolist(todolist.map(el=>el.id === toDolistId ? {...el, title: changeTitle} : el ))
+        setTodolist(todolist.map(el => el.id === toDolistId ? {...el, title: changeTitle} : el))
     }
 
     const editTask = (toDolistId: string, taskId: string, newTitle: string) => {
-        setTasks({...tasks, [toDolistId]: tasks[toDolistId].map(el=>el.id === taskId ? {...el, title: newTitle} : el)})
+        setTasks({
+            ...tasks,
+            [toDolistId]: tasks[toDolistId].map(el => el.id === taskId ? {...el, title: newTitle} : el)
+        })
     }
 
     return (
@@ -97,7 +101,6 @@ function App() {
                 if (el.filter === "Completed") {
                     tasksForTodolist = tasks[el.id].filter(t => t.isDone === true);
                 }
-
                 return (
                     <div className="App">
                         <Todolist
